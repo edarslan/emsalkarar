@@ -1,6 +1,4 @@
-# emsalkarar
-
-
+# hukuk-gpt
 
 #virtual env calistirmak icin
 

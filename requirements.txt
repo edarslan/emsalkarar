@@ -1,0 +1,20 @@
+bcrypt
+chromadb
+email_validator
+Flask
+flask_migrate
+Flask-Login
+Flask-SQLAlchemy
+Flask-WTF
+groq
+gunicorn # For production deployment, optional for development
+langchain
+langchain_community
+langchain_google_genai
+langchain-openai
+openai
+psycopg2-binary # If using PostgreSQL in production, optional
+pypdf
+python-dotenv
+tiktoken
+Werkzeug
