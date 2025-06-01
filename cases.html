@@ -1,0 +1,83 @@
+{% extends "partials/header.html" %}
+
+{% block title %}{{ title | default('Emsal Kararlar') }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4"> {# Add a container for content and some top margin #}
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>Emsal Kararlar</h1>
+        <p class="lead text-secondary">Platformumuzdaki güncel emsal kararları inceleyin ve detaylı arama yapın.</p>
+         <div class="search-box col-md-8 col-lg-6 mx-auto mt-4">
+           <form class="input-group" action="{{ url_for('main.cases') }}" method="get">
+             <input type="text" class="form-control" name="query" placeholder="Karar metninde veya esas/karar no ile arayın..." aria-label="Karar arama" value="{{ request.args.get('query', '') }}">
+             <button class="btn btn-primary" type="submit">Ara</button>
+           </form>
+         </div>
+    </section>
+
+    <!-- Sample Cards Section -->
+    <section class="content-section section-padding-sm bg-content">
+        <!-- Add logic here to display actual cases if available, or a message if not -->
+        <!-- For now, keeping placeholder cards -->
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+          <!-- Card 1 -->
+          <div class="col">
+            <div class="card h-100">
+              <img src="https://images.unsplash.com/photo-1556155092-490a1ba16284?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=60" class="card-img-top" alt="Örnek Karar 1">
+              <div class="card-body">
+                <h5 class="card-title"><a href="#">Örnek Karar 1</a></h5>
+                <p class="card-text">Bu karar, belirli bir davada verilen örnek bir kararı temsil etmektedir. Detaylı analiz için inceleyin.</p>
+              </div>
+              <div class="card-footer">
+                <a href="#" class="btn btn-sm btn-outline-primary">Detaylar</a>
+              </div>
+            </div>
+          </div>
+          <!-- Card 2 -->
+          <div class="col">
+            <div class="card h-100">
+              <img src="https://images.unsplash.com/photo-1556155092-490a1ba16284?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=60" class="card-img-top" alt="Örnek Karar 2">
+              <div class="card-body">
+                <h5 class="card-title"><a href="#">Örnek Karar 2</a></h5>
+                <p class="card-text">Bu örnek karar, benzer davalar için referans değeri taşımaktadır ve önemli içtihatlar içerir.</p>
+              </div>
+              <div class="card-footer">
+                <a href="#" class="btn btn-sm btn-outline-primary">Detaylar</a>
+              </div>
+            </div>
+          </div>
+          <!-- Card 3 -->
+          <div class="col">
+            <div class="card h-100">
+              <img src="https://images.unsplash.com/photo-1556155092-490a1ba16284?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=60" class="card-img-top" alt="Örnek Karar 3">
+              <div class="card-body">
+                <h5 class="card-title"><a href="#">Örnek Karar 3</a></h5>
+                <p class="card-text">Bu karar, adaletin çeşitli boyutları hakkında bilgi vermektedir ve güncel hukuki tartışmalara ışık tutar.</p>
+              </div>
+              <div class="card-footer">
+                <a href="#" class="btn btn-sm btn-outline-primary">Detaylar</a>
+              </div>
+            </div>
+          </div>
+           <!-- Card 4 -->
+           <div class="col">
+            <div class="card h-100">
+              <img src="https://images.unsplash.com/photo-1556155092-490a1ba16284?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=60" class="card-img-top" alt="Örnek Karar 4">
+              <div class="card-body">
+                <h5 class="card-title"><a href="#">Örnek Karar 4</a></h5>
+                <p class="card-text">Yeni eklenen bu karar, özellikle ticari anlaşmazlıklar konusunda önemli bir emsal teşkil etmektedir.</p>
+              </div>
+              <div class="card-footer">
+                <a href="#" class="btn btn-sm btn-outline-primary">Detaylar</a>
+              </div>
+            </div>
+          </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{# Add any page-specific scripts here if needed #}
+{% endblock %}

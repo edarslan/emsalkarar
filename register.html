@@ -1,0 +1,95 @@
+{% extends "partials/header.html" %}
+
+{% block title %}{{ title | default('Kayıt Ol') }}{% endblock %}
+
+{% block content %}
+<div class="auth-form-container"> {# This class from main.css handles centering and padding #}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6 col-xl-5">
+                {# Flash messages are already included in header.html #}
+                <div class="auth-form-wrapper p-4 p-md-5"> {# Relies on main.css for styling #}
+                    <h2 class="text-accent text-center mb-4">Kayıt Ol</h2>
+                    <form method="POST" action="{{ url_for('auth.register') }}" novalidate>
+                        {{ form.hidden_tag() }}
+                        <div class="form-group mb-3">
+                            {{ form.full_name.label(class="form-label") }}
+                            {% if form.full_name.errors %}
+                                {{ form.full_name(class="form-control form-control-lg is-invalid", placeholder="Adınızı ve soyadınızı girin") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.full_name.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.full_name(class="form-control form-control-lg", placeholder="Adınızı ve soyadınızı girin") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group mb-3">
+                            {{ form.email.label(class="form-label") }}
+                            {% if form.email.errors %}
+                                {{ form.email(class="form-control form-control-lg is-invalid", placeholder="E-posta adresinizi girin") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.email.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.email(class="form-control form-control-lg", placeholder="E-posta adresinizi girin") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group mb-3">
+                            {{ form.password.label(class="form-label") }}
+                            {% if form.password.errors %}
+                                {{ form.password(class="form-control form-control-lg is-invalid", placeholder="Şifrenizi oluşturun") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.password.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.password(class="form-control form-control-lg", placeholder="Şifrenizi oluşturun") }}
+                            {% endif %}
+                        </div>
+                         <div class="form-group mb-3">
+                            {{ form.confirm_password.label(class="form-label") }}
+                            {% if form.confirm_password.errors %}
+                                {{ form.confirm_password(class="form-control form-control-lg is-invalid", placeholder="Şifrenizi tekrar girin") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.confirm_password.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.confirm_password(class="form-control form-control-lg", placeholder="Şifrenizi tekrar girin") }}
+                            {% endif %}
+                        </div>
+                        {# Add terms and conditions checkbox if needed by form #}
+                        {# Example:
+                        <div class="form-check mb-3">
+                            {{ form.terms(class="form-check-input") }}
+                            {{ form.terms.label(class="form-check-label") }}
+                            {% if form.terms.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.terms.errors %}<span>{{ error }}</span>{% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        #}
+                        <div class="d-grid gap-2">
+                           {{ form.submit(class="btn btn-primary btn-lg") }}
+                        </div>
+                        <p class="form-text mt-3 text-center">
+                            Zaten hesabınız var mı? <a href="{{ url_for('auth.login') }}">Giriş Yapın</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{# Add any page-specific scripts here if needed #}
+{% endblock %}

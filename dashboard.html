@@ -1,0 +1,100 @@
+{% extends "partials/header.html" %}
+
+{% block title %}{{ title | default('Kullanıcı Paneli') }} - {{ site_name | default('EmsalKarar GPT') }}{% endblock %}
+
+{% block head_extra %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4"> {# Add a container for content and some top margin #}
+    <section class="page-header mb-4">
+        <h1>{{ title | default('Kullanıcı Paneli') }}</h1>
+        <p class="lead text-secondary">Hoşgeldiniz, {{ current_user.full_name }}!</p>
+    </section>
+
+    <section class="content-section">
+        <div class="row mb-3">
+            <div class="col">
+                <h2>Yüklediğiniz PDF Dosyaları</h2>
+            </div>
+            <div class="col text-end">
+                <a href="{{ url_for('dashboard.upload_pdf') }}" class="btn btn-primary">
+                    <i class="fas fa-plus-circle me-2"></i>Yeni PDF Yükle
+                </a>
+            </div>
+        </div>
+
+        {% if user_pdfs %}
+            <div class="list-group">
+                {% for pdf in user_pdfs %}
+                    <div class="list-group-item list-group-item-action flex-column align-items-start mb-3 p-3 border rounded shadow-sm">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">
+                                <a href="{{ url_for('chat.chat_with_pdf', pdf_id=pdf.id) }}" class="text-decoration-none">
+                                    <i class="fas fa-file-pdf text-danger me-2"></i>{{ pdf.original_filename }}
+                                </a>
+                            </h5>
+                            <small class="text-muted">{{ pdf.upload_date.strftime('%d-%m-%Y %H:%M') }}</small>
+                        </div>
+                        <p class="mb-1">
+                            {% if pdf.processed %}
+                                <span class="badge bg-success">İşlendi</span>
+                            {% else %}
+                                <span class="badge bg-warning text-dark">İşleniyor...</span>
+                            {% endif %}
+                        </p>
+                        <div class="mt-2">
+                            <a href="{{ url_for('chat.chat_with_pdf', pdf_id=pdf.id) }}" class="btn btn-sm btn-outline-primary me-2">
+                                <i class="fas fa-comments me-1"></i>Sohbet Et
+                            </a>
+                            <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deletePdfModal-{{ pdf.id }}">
+                                <i class="fas fa-trash-alt me-1"></i>Sil
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Delete Confirmation Modal for each PDF -->
+                    <div class="modal fade" id="deletePdfModal-{{ pdf.id }}" tabindex="-1" aria-labelledby="deletePdfModalLabel-{{ pdf.id }}" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered"> {# Added modal-dialog-centered #}
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="deletePdfModalLabel-{{ pdf.id }}">PDF Silme Onayı</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    '{{ pdf.original_filename }}' adlı dosyayı silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                                    <form action="{{ url_for('dashboard.delete_pdf', pdf_id=pdf.id) }}" method="POST" style="display: inline;">
+                                        <button type="submit" class="btn btn-danger">Evet, Sil</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-info" role="alert">
+                Henüz hiç PDF dosyası yüklemediniz. <a href="{{ url_for('dashboard.upload_pdf') }}" class="alert-link">Hemen bir tane yükleyin!</a>
+            </div>
+        {% endif %}
+        
+        <hr class="my-4">
+        <div>
+            <h4>Hesap İşlemleri</h4>
+            <ul>
+                <li><a href="#">Profilimi Düzenle (Yakında)</a></li>
+                <li><a href="#">Abonelik Bilgileri (Yakında)</a></li>
+                <li><a href="{{ url_for('auth.logout') }}">Çıkış Yap</a></li>
+            </ul>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{# Add any page-specific scripts here if needed #}
+{% endblock %}

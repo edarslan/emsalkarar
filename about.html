@@ -1,0 +1,40 @@
+{% extends "partials/header.html" %}
+
+{% block title %}{{ title | default('Hakkımızda') }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4"> {# Add a container for content and some top margin #}
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>Hakkımızda</h1>
+        <p class="lead text-secondary">EmsalKarar platformunun misyonu, vizyonu ve hukuk dünyasına getirdiği yenilikçi yaklaşım.</p>
+    </section>
+
+    <!-- Content Section -->
+    <section class="content-section section-padding-sm">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6 order-lg-2">
+                <img src="https://images.unsplash.com/photo-1589829545856-d10d3acabea2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80" class="img-fluid about-image" alt="Modern Hukuk Kitapları">
+            </div>
+            <div class="col-lg-6 order-lg-1">
+                <h2 class="text-accent">Platformumuzun Amacı</h2>
+                <p>
+                  EmsalKarar, hukuk profesyonelleri, akademisyenler ve öğrenciler için tasarlanmış modern bir hukuki araştırma platformudur. Temel amacımız, Türkiye'deki emsal kararlara erişimi demokratikleştirmek, karmaşık hukuki süreçleri basitleştirmek ve adaletin tecellisine katkıda bulunmaktır.
+                </p>
+                <p>
+                  Gelişmiş arama teknolojileri ve kullanıcı odaklı tasarımımızla, en güncel Yargıtay, Danıştay, BAM ve diğer yüksek mahkeme kararlarını parmaklarınızın ucuna getiriyoruz. Güvenilir ve kapsamlı veritabanımız, hukuki araştırmalarınızda size zaman kazandırmak ve en doğru bilgiye ulaşmanızı sağlamak için sürekli güncellenmektedir.
+                </p>
+                <h2 class="mt-4 text-accent">Neden EmsalKarar?</h2>
+                <p>
+                  Kullanıcı dostu arayüzümüz, güçlü filtreleme seçeneklerimiz ve kişiselleştirilebilir özelliklerimizle öne çıkıyoruz. Platformumuz, sadece bir karar arama motoru değil, aynı zamanda hukuki bilginizi derinleştirebileceğiniz ve mesleki gelişiminize katkı sağlayabileceğiniz bir ekosistem sunmayı hedefler. Hukuk dünyasındaki dijital dönüşüme öncülük etme vizyonuyla hareket ediyor, teknolojinin gücünü hukukçuların hizmetine sunuyoruz.
+                </p>
+                 <a href="{{ url_for('main.contact') }}" class="btn btn-primary mt-3">Bizimle İletişime Geçin</a>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{# Add any page-specific scripts here if needed #}
+{% endblock %}

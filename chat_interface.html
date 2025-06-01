@@ -1,0 +1,112 @@
+{% extends "partials/header.html" %}
+
+{% block title %}{{ title }} - {{ site_name | default('EmsalKarar GPT') }}{% endblock %}
+
+{% block head_extra %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4"> {# Add a container for content and some top margin #}
+    <section class="page-header mb-3">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h1>{{ title }}</h1>
+                <p class="lead text-secondary">
+                    <i class="fas fa-file-pdf text-danger me-1"></i>{{ pdf.original_filename }} ile sohbet ediyorsunuz.
+                </p>
+            </div>
+            <div>
+                <a href="{{ url_for('dashboard.index') }}" class="btn btn-outline-secondary me-2">
+                    <i class="fas fa-arrow-left me-1"></i>Panele Dön
+                </a>
+                <a href="{{ url_for('chat.new_chat_session', pdf_id=pdf.id) }}" class="btn btn-primary">
+                    <i class="fas fa-plus-circle me-1"></i>Yeni Sohbet Başlat
+                </a>
+            </div>
+        </div>
+         <p class="text-muted small">Aktif Oturum: {% if current_chat_session %}{{ current_chat_session.title | default(current_chat_session.session_uuid[:8]+'...') }}{% else %}Yeni Sohbet{% endif %}</p>
+    </section>
+
+    <section class="content-section">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-history me-1"></i>Sohbet Geçmişi (Oturumlar)
+                    </div>
+                    <div class="list-group list-group-flush" style="max-height: 50vh; overflow-y: auto;">
+                        {% if all_chat_sessions %}
+                            {% for session_item in all_chat_sessions %}
+                                <a href="{{ url_for('chat.chat_with_pdf', pdf_id=pdf.id, session_uuid=session_item.session_uuid) }}"
+                                   class="list-group-item list-group-item-action {% if current_chat_session and session_item.session_uuid == current_chat_session.session_uuid %}active{% endif %}">
+                                    {{ session_item.title | default(session_item.session_uuid[:8]+'...') }}
+                                    <small class="d-block text-muted">{{ session_item.updated_at.strftime('%d-%m-%Y %H:%M') }}</small>
+                                </a>
+                            {% endfor %}
+                        {% else %}
+                            <li class="list-group-item">Bu PDF için kayıtlı sohbet oturumu yok.</li>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="chat-window card shadow-sm"> {# chat-window class is from chat.css #}
+                    <div class="card-header bg-light"> {# Consider using variables from main.css if bg-light is not desired #}
+                        <i class="fas fa-comments me-2 text-primary"></i>Sohbet Akışı: {% if current_chat_session %}{{ current_chat_session.title | default(current_chat_session.session_uuid[:8]+'...') }}{% else %}Yeni Mesaj{% endif %}
+                    </div>
+                    <div class="card-body chat-messages" id="chatMessages">
+                        {% if chat_history %}
+                            {% for message in chat_history %}
+                                <div class="message mb-3 {% if message.sender_type == 'user' %}user-message{% else %}ai-message{% endif %}">
+                                    <div class="message-bubble p-2 rounded">
+                                        <p class="mb-0">{{ message.message_content | nl2br }}</p>
+                                        <small class="text-muted message-time">
+                                            {% if message.sender_type == 'user' %}Siz{% else %}Yapay Zeka{% endif %} - {{ message.timestamp.strftime('%d-%m-%Y %H:%M') }}
+                                        </small>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <p class="text-center text-muted">
+                                {% if current_chat_session %}
+                                    Bu oturumda henüz mesaj yok. Aşağıdan bir soru sorarak başlayın!
+                                {% else %}
+                                    Yeni bir sohbet başlatmak için bir mesaj gönderin veya mevcut bir oturum seçin.
+                                {% endif %}
+                            </p>
+                        {% endif %}
+                    </div>
+                    <div class="card-footer chat-input-area">
+                        <form method="POST" action="{{ url_for('chat.chat_with_pdf', pdf_id=pdf.id, session_uuid=current_chat_session.session_uuid if current_chat_session else request.args.get('session_uuid')) }}" id="chatForm">
+                            {{ form.hidden_tag() }}
+                            <div class="input-group">
+                                {{ form.message(class="form-control", placeholder="Sorunuzu buraya yazın...", rows="2", autofocus=true) }}
+                                {{ form.submit(class="btn btn-primary") }}
+                            </div>
+                            {% if form.message.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.message.errors %}
+                                        <span>{{ error }}</span><br>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Auto-scroll to the bottom of the chat messages
+    const chatMessagesDiv = document.getElementById('chatMessages');
+    if (chatMessagesDiv) {
+        chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;
+    }
+</script>
+{% endblock %}

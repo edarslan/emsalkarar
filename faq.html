@@ -1,0 +1,80 @@
+{% extends "partials/header.html" %}
+
+{% block title %}{{ title | default('S.S.S.') }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4"> {# Add a container for content and some top margin #}
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>Sıkça Sorulan Sorular</h1>
+        <p class="lead text-secondary">Platformumuz ve hizmetlerimiz hakkında en çok merak edilen soruların yanıtları.</p>
+    </section>
+
+    <!-- FAQ Content Section -->
+    <section class="content-section section-padding-sm bg-content">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10">
+                <div class="accordion" id="faqAccordion">
+                    <!-- FAQ Item 1 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faqHeadingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseOne" aria-expanded="true" aria-controls="faqCollapseOne">
+                                Emsal kararlara nasıl erişebilirim?
+                            </button>
+                        </h2>
+                        <div id="faqCollapseOne" class="accordion-collapse collapse show" aria-labelledby="faqHeadingOne" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Platformumuzun ana sayfasındaki arama çubuğunu kullanarak anahtar kelime, kanun maddesi veya karar numarası ile kolayca arama yapabilirsiniz. Ayrıca, "<a href="{{ url_for('main.cases') }}">Emsal Kararlar</a>" bölümünde yer alan filtreleme seçeneklerini kullanarak da aradığınız kararlara ulaşabilirsiniz.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- FAQ Item 2 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faqHeadingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseTwo" aria-expanded="false" aria-controls="faqCollapseTwo">
+                                Kararlar ne sıklıkla güncelleniyor?
+                            </button>
+                        </h2>
+                        <div id="faqCollapseTwo" class="accordion-collapse collapse" aria-labelledby="faqHeadingTwo" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Veritabanımız, en güncel ve emsal teşkil edebilecek kararları içerecek şekilde düzenli olarak güncellenmektedir. Yüksek Mahkeme kararları ve önemli hukuki gelişmeler yakından takip edilerek, platformumuza en kısa sürede yansıtılmaktadır.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- FAQ Item 3 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faqHeadingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseThree" aria-expanded="false" aria-controls="faqCollapseThree">
+                                EmsalKarar'ı kullanmak ücretli mi?
+                            </button>
+                        </h2>
+                        <div id="faqCollapseThree" class="accordion-collapse collapse" aria-labelledby="faqHeadingThree" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Platformumuzun temel özelliklerine erişim ücretsizdir. Ancak, ileri düzey arama filtreleri, detaylı analiz araçları ve özel içerikler gibi ek özellikler için premium üyelik seçeneği sunulmaktadır.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- FAQ Item 4 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faqHeadingFour">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseFour" aria-expanded="false" aria-controls="faqCollapseFour">
+                                Aradığım kararı bulamıyorum, ne yapmalıyım?
+                            </button>
+                        </h2>
+                        <div id="faqCollapseFour" class="accordion-collapse collapse" aria-labelledby="faqHeadingFour" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Aradığınız karara ulaşmakta zorluk çekiyorsanız, farklı anahtar kelimeler veya filtreler deneyerek aramayı daraltabilirsiniz. Eğer hala sonuca ulaşamıyorsanız, "<a href="{{ url_for('main.contact') }}">İletişim</a>" sayfamızdaki formu kullanarak bize ulaşın. Hukuk uzmanlarımız size yardımcı olmaktan memnuniyet duyacaktır.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Add more FAQ items if needed -->
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{# Add any page-specific scripts here if needed #}
+{% endblock %}

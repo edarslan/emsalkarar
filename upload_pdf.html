@@ -1,0 +1,58 @@
+{% extends "partials/header.html" %}
+
+{% block title %}{{ title | default('PDF Yükle') }} - {{ site_name | default('EmsalKarar GPT') }}{% endblock %}
+
+{% block head_extra %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4"> {# Add a container for content and some top margin #}
+    <section class="page-header mb-4">
+        <h1>{{ title | default('PDF Yükle') }}</h1>
+        <p class="lead text-secondary">Sohbet etmek ve analiz etmek istediğiniz PDF dosyasını yükleyin.</p>
+    </section>
+
+    <section class="content-section">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card shadow-sm">
+                    <div class="card-body p-4">
+                        <form method="POST" action="{{ url_for('dashboard.upload_pdf') }}" enctype="multipart/form-data" novalidate>
+                            {{ form.hidden_tag() }}
+                            
+                            <div class="mb-3">
+                                {{ form.pdf_file.label(class="form-label") }}
+                                {% if form.pdf_file.errors %}
+                                    {{ form.pdf_file(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.pdf_file.errors %}
+                                            <span>{{ error }}</span><br>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.pdf_file(class="form-control form-control-lg") }}
+                                {% endif %}
+                                <div class="form-text">Sadece .pdf uzantılı dosyalar kabul edilir. Maksimum dosya boyutu: 20MB (örnek).</div>
+                            </div>
+                            
+                            <div class="d-grid gap-2 mt-4">
+                                {{ form.submit(class="btn btn-primary btn-lg") }}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="text-center mt-3">
+                    <a href="{{ url_for('dashboard.index') }}" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left me-2"></i>Panele Geri Dön
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{# Add any page-specific scripts here if needed #}
+{% endblock %}

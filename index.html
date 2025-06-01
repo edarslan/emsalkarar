@@ -1,0 +1,40 @@
+{% extends "partials/header.html" %}
+
+{% block title %}{{ title | default('Ana Sayfa') }}{% endblock %}
+
+{% block content %}
+{# The main container for the hero section is part of the hero-section itself in main.css #}
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="container">
+    <h1>Türkiye'nin <span class="highlight">En Kapsamlı</span> Emsal Karar Platformu</h1>
+    <p class="subtitle">Binlerce güncel Yargıtay, Danıştay ve BAM kararına anında erişin, aradığınız hukuki dayanağı kolayca bulun.</p>
+    <div class="search-box">
+      <form class="input-group" action="{{ url_for('main.cases') }}" method="get">
+        <input type="text" class="form-control" name="query" placeholder="Karar metninde veya esas/karar no ile arayın..." aria-label="Karar arama">
+        <button class="btn btn-primary" type="submit">Ara</button>
+      </form>
+    </div>
+    <div class="mt-4">
+        <a href="{{ url_for('main.cases') }}" class="btn btn-lg btn-secondary">Tüm Kararları Gör</a>
+    </div>
+  </div>
+</section>
+
+<!-- Placeholder for potential future content sections -->
+<div class="container mt-4"> {# Added container for subsequent sections #}
+    <section class="content-section section-padding-sm bg-content">
+        <div class="row text-center">
+            <div class="col-12">
+                <h2 class="text-accent">Öne Çıkanlar</h2>
+                <p class="text-secondary">Yakında burada öne çıkan kararlar veya platform özellikleri yer alacak.</p>
+                <!-- Example Card Structure (can be added later) -->
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{# Add any page-specific scripts here if needed #}
+{% endblock %}

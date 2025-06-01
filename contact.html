@@ -1,0 +1,49 @@
+{% extends "partials/header.html" %}
+
+{% block title %}{{ title | default('İletişim') }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4"> {# Add a container for content and some top margin #}
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>İletişim</h1>
+        <p class="lead text-secondary">Sorularınız, önerileriniz veya geri bildirimleriniz için bizimle iletişime geçmekten çekinmeyin.</p>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="content-section section-padding-sm bg-content">
+        <div class="row justify-content-center">
+            <div class="col-lg-7 col-md-9">
+                <div class="form-wrapper p-4 p-md-5"> {# Relies on main.css for .form-wrapper styling #}
+                    <h2 class="mb-4 text-center text-accent">Bize Ulaşın</h2>
+                    <form id="contactForm" method="POST" action="{{ url_for('main.contact') }}">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Adınız Soyadınız</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Adınız ve Soyadınız" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">E-posta Adresiniz</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="ornek@domain.com" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="subject" class="form-label">Konu</label>
+                            <input type="text" class="form-control" id="subject" name="subject" placeholder="Mesajınızın konusu" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Mesajınız</label>
+                            <textarea class="form-control" id="message" name="message" rows="5" placeholder="Mesajınızı buraya yazın..." required></textarea>
+                        </div>
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg">Mesajı Gönder</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{# Add any page-specific scripts here if needed #}
+{% endblock %}
